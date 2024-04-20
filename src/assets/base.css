@@ -1,0 +1,68 @@
+:root {
+  /* Cores de background */
+  --background-primary: #fff; /* Cor de fundo primária */
+  --background-secondary: #f26363; /* Cor de fundo secundária */
+
+  /* Cores de texto */
+  --text-primary: #171559; /* Cor do texto principal */
+  --text-secondary: #4b4b4b; /* Cor do texto secundário */
+  --text-white: #ffffff; /* Cor do texto branco */
+  --text-black: #2e2e2e; /* Cor do texto preto */
+  --text-error: #ff0000; /* Cor do texto de erro */
+  --text-title: #f26363;
+
+  /* Cores de botão */
+  --button-primary-background: #171559; /* Cor de fundo do botão primário */
+  --button-primary-text: #ffffff; /* Cor do texto do botão primário */
+  --button-secondary-background: #fff; /* Cor de fundo do botão secundário */
+  --button-secondary-text: #171559; /* Cor do texto do botão secundário */
+
+  /* Cores de borda */
+  --border-container: #d8d8d8; /* Cor da borda do contêiner */
+  --border-input: #171559; /* Cor da borda do input */
+
+  /* Cores de placeholders */
+  --placeholder-text: #8a8a8a; /* Cor do texto do placeholder */
+
+  /* Cores de hover */
+  --hover-background: #dddddd; /* Cor de fundo em hover */
+  --hover-text: #000000; /* Cor do texto em hover */
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
