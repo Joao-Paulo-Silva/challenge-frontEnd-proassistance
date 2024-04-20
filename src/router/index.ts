@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import RegisterView from '../views/RegisterView.vue'
 import EmptyView from '@/views/EmptyView.vue'
 
 const router = createRouter({
@@ -8,7 +8,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'cadastro',
-      component: HomeView
+      component: RegisterView
     },
     {
       path: '/home',

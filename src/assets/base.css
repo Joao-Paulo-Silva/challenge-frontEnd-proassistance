@@ -29,7 +29,6 @@
   --hover-text: #000000; /* Cor do texto em hover */
 }
 
-
 *,
 *::before,
 *::after {
@@ -64,5 +63,4 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
