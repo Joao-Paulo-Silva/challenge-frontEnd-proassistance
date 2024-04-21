@@ -46,3 +46,13 @@ export function formatPhone(text: string): string {
 
     return phone
 }
+
+
+export function formatRG(text: string): string{
+    text = text.replace(/[^a-zA-Z0-9]/g, '');
+    // Mantém apenas os dois primeiros caracteres como letras (se existirem)
+    const letters: string = text.replace(/[^a-zA-Z]/g, '');
+    const numbers: string = text.replace(/[^0-9]/g, ''); 
+    // Retorna a string formatada
+    return letters.slice(0, 2).toUpperCase() + numbers;
+}

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+  import { RouterView } from 'vue-router'
 
-import SideBar from '@/components/common/SideBar.vue'
+  import SideBar from '@/components/common/SideBar.vue'
 </script>
 
 <template>
@@ -12,9 +12,9 @@ import SideBar from '@/components/common/SideBar.vue'
 </template>
 
 <style scoped>
-.main {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-}
+  .main {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+  }
 </style>

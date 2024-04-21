@@ -32,7 +32,7 @@ export const FormErrors: TFormErrors = {
     dateOfBirthErr: false,
     biologicalSexErr: false,
     ethnicityErr: false,
-    idErr: false,
+    rgErr: false,
     cpfErr: false,
     neighborhoodErr: false,
     addressErr: false
@@ -46,7 +46,7 @@ export const PersonFormsData: TPersonFormsData = {
     gender: '',
     LGBTQIA: '',
     ethnicity: '',
-    id: '',
+    rg: '',
     cpf: '',
     neighborhood: '',
     address: '',

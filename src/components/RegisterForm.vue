@@ -40,7 +40,7 @@
           Preenchimento obrigatório
         </p>
       </div>
-      <Space width="2em" height="0" />
+      <SpaceComponent width="2em" height="0" />
       <div class="container-input">
         <label class="label">Sexo Biológico:</label>
         <select class="input" v-model="formData.biologicalSex">
@@ -79,7 +79,7 @@
             /></label>
           </div>
         </div>
-        <Space width="2em" height="0" />
+        <SpaceComponent width="2em" height="0" />
         <div class="column">
           <label>&nbsp;</label>
           <div
@@ -99,7 +99,7 @@
           </div>
         </div>
       </div>
-      <Space width="2em" height="0" />
+      <SpaceComponent width="2em" height="0" />
       <div class="w100">
         <label class="label">A pessoa se considera parte do público LGBTQIA+?</label>
         <div class="flex">
@@ -144,13 +144,14 @@
           id="rg"
           maxlength="10"
           placeholder="0000000000"
-          v-model="formData.id"
+          v-model="formData.rg"
+          @input="formatRGLocal"
         />
-        <p :class="errs.idErr ? 'required-content-error' : 'required-content'">
+        <p :class="errs.rgErr ? 'required-content-error' : 'required-content'">
           Preenchimento obrigatório de RG ou de CPF
         </p>
       </div>
-      <Space width="2em" height="0" />
+      <SpaceComponent width="2em" height="0" />
       <div class="container-input">
         <label class="label" for="cpf">CPF</label>
         <input
@@ -182,7 +183,7 @@
           Preenchimento obrigatório
         </p>
       </div>
-      <Space width="2em" height="0" />
+      <SpaceComponent width="2em" height="0" />
       <div class="container-input">
         <label class="label" for="endereco">Endereço</label>
         <input
@@ -209,7 +210,7 @@
         />
         <p class="required-content"></p>
       </div>
-      <Space width="2em" height="0" />
+      <SpaceComponent width="2em" height="0" />
       <div class="container-input">
         <label class="label" for="complemento">Complemento</label>
         <input
@@ -237,7 +238,7 @@
         />
         <p class="required-content"></p>
       </div>
-      <Space width="2em" height="0" />
+      <SpaceComponent width="2em" height="0" />
       <div class="container-input">
         <label class="label" for="email">E-mail</label>
         <input
@@ -259,7 +260,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { formatPhone, formatCPF } from '@/utils/mask-string-utils'
+import { formatPhone, formatCPF, formatRG } from '@/utils/mask-string-utils'
 import {
   genderOptions,
   ethnicityOptions,
@@ -268,14 +269,14 @@ import {
   FormErrors,
   PersonFormsData
 } from '@/constants/index'
-import Space from './common/Space.vue'
+import SpaceComponent from './common/SpaceComponent.vue'
 import ModalElement from './common/ModalElement.vue'
 import ModalContent from './ModalContent.vue'
 import { personDataValidation } from '@/utils/data-validation-utils'
 
 export default defineComponent({
   components: {
-    Space,
+    SpaceComponent,
     ModalElement,
     ModalContent
   },
@@ -321,12 +322,17 @@ export default defineComponent({
     updateErrs() {
       this.errs = personDataValidation(this.formData)
     },
-    formatPhoneLocal(){
+    formatPhoneLocal() {
       this.formData.phone = formatPhone(this.formData.phone)
     },
-    formatCPFLocal(){
+    formatCPFLocal() {
       this.formData.cpf = formatCPF(this.formData.cpf)
+    },
+    formatRGLocal(){
+      this.formData.rg = formatRG(this.formData.rg)
+      
     }
+
   }
 })
 </script>

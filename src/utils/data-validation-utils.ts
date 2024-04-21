@@ -14,7 +14,7 @@ export function personDataValidation(dataPerson: TPersonFormsData): TFormErrors 
         dateOfBirthErr: dataPerson.birthDate.length === 0,
         addressErr: dataPerson.address.length === 0,
         ethnicityErr: dataPerson.ethnicity.length === 0,
-        idErr: dataPerson.id.length < 10,
+        rgErr: dataPerson.rg.length < 10,
         biologicalSexErr: dataPerson.biologicalSex.length === 0,
     }
 }

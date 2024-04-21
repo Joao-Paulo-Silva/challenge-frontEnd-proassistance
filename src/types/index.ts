@@ -6,7 +6,7 @@ export interface TPersonFormsData {
     gender: string;
     LGBTQIA: string;
     ethnicity: string;
-    id: string;
+    rg: string;
     cpf: string;
     neighborhood: string;
     address: string;
@@ -21,7 +21,7 @@ export interface TFormErrors {
     dateOfBirthErr: boolean;
     biologicalSexErr: boolean;
     ethnicityErr: boolean;
-    idErr: boolean;
+    rgErr: boolean;
     cpfErr: boolean;
     neighborhoodErr: boolean;
     addressErr: boolean;

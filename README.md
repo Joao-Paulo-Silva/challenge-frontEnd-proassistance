@@ -1,24 +1,40 @@
 # Desafio FrontEnd ProAssistance
 
-## Configuração da IDE Recomendada
+## Sumário
 
-Para uma experiência ideal no desenvolvimento, sugerimos a utilização do [VSCode](https://code.visualstudio.com/) em conjunto com a extensão [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (e desativar o Vetur).
-
-## Suporte de Tipo para Importações `.vue` em TypeScript
-
-Por padrão, o TypeScript não consegue lidar com informações de tipo para importações `.vue`. Portanto, recomendamos substituir o CLI `tsc` pelo `vue-tsc` para a verificação de tipo. Nos editores, é necessário instalar o [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) para que o serviço de linguagem TypeScript reconheça os tipos `.vue`.
-
-## Configuração Personalizada
-
-Para personalizar a configuração, consulte a [Referência de Configuração do Vite](https://vitejs.dev/config/).
+1. [Configuração do Projeto](#configuração-do-projeto)
+   - [Instalação das Dependências do Projeto](#instalação-das-dependências-do-projeto)
+   - [Compilar e Recarregar Automaticamente para Desenvolvimento](#compilar-e-recarregar-automaticamente-para-desenvolvimento)
+   - [Verificação de Tipo, Compilação e Minificação para Produção](#verificação-de-tipo-compilação-e-minificação-para-produção)
+   - [Executando em Produção](#executando-em-produção)
+   - [Executar Testes Unitários com Vitest](#executar-testes-unitários-com-vitest)
+   - [Lint com ESLint](#lint-com-eslint)
+2. [Utilizando um Contêiner Docker](#utilizando-um-contêiner-docker)
+   - [Gerando uma Build do Sistema](#gerando-uma-build-do-sistema)
+   - [Executando a Imagem Docker](#executando-a-imagem-docker)
+3. [Executando com Docker Compose](#executando-com-docker-compose)
 
 ## Configuração do Projeto
+
+### Instalação das Dependências do Projeto
+
+Execute este comando para instalar todas as dependências necessárias do projeto.
 
 ```sh
 npm install
 ```
 
+As principais dependências do projeto são:
+
+- **oh-vue-icons**: Uma biblioteca de ícones para Vue.js.
+- **pinia**: Um gerenciador de estado para Vue.js.
+- **vue**: O próprio framework Vue.js.
+- **vue-router**: O roteador oficial para Vue.js.
+
 ### Compilar e Recarregar Automaticamente para Desenvolvimento
+
+Este comando compila o código e inicia um servidor de desenvolvimento que 
+recarrega automaticamente quando você faz alterações no código.
 
 ```sh
 npm run dev
@@ -26,17 +42,32 @@ npm run dev
 
 ### Verificação de Tipo, Compilação e Minificação para Produção
 
+Este comando realiza a verificação de tipo, compilação e minificação do código 
+para produção.
+
 ```sh
 npm run build
 ```
 
-### Executar Testes Unitários com [Vitest](https://vitest.dev/)
+### Executando em Produção
+
+Este comando executa a aplicação em modo de produção.
+
+```sh
+npm run preview
+```
+
+### Executar Testes Unitários com Vitest
+
+Execute este comando para executar os testes unitários usando Vitest.
 
 ```sh
 npm run test:unit
 ```
 
-### Lint com [ESLint](https://eslint.org/)
+### Lint com ESLint
+
+Execute este comando para verificar o código em busca de problemas com ESLint.
 
 ```sh
 npm run lint
@@ -46,12 +77,24 @@ npm run lint
 
 ### Gerando uma Build do Sistema
 
+Este comando gera uma imagem Docker para o sistema.
+
 ```sh
 docker build -t pro-assistance/latest .
 ```
 
 ### Executando a Imagem Docker
 
+Este comando executa a imagem Docker criada anteriormente.
+
 ```sh
 docker run -it -p 8080:80 --rm --name pro-assistance pro-assistance/latest
+```
+
+## Executando com Docker Compose
+
+Este comando executa o sistema utilizando Docker Compose.
+
+```sh
+docker-compose up -d
 ```

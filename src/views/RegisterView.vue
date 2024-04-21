@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import RegisterForm from '@/components/RegisterForm.vue'
+  import RegisterForm from '@/components/RegisterForm.vue'
 </script>
 
 <template>
@@ -9,11 +9,11 @@ import RegisterForm from '@/components/RegisterForm.vue'
 </template>
 
 <style scoped>
-.main-container {
-  width: 100%;
-  height: 100vh;
-  overflow-y: auto;
-  padding: 0 1em;
-  padding-top: 1.2rem;
-}
+  .main-container {
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 0 1em;
+    padding-top: 1.2rem;
+  }
 </style>

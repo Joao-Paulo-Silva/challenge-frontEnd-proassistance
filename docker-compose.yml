@@ -1,0 +1,30 @@
+version: '3'
+services:
+  app:
+    # Configuração para gerar a imagem do contêiner
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    # Nome do contêiner da aplicação
+    container_name: pro-assistance
+    # Portas do host para o contêiner
+    ports:
+      - 8080:80
+    # Limite de memória de 512MB de RAM para a aplicaçãp
+    mem_limit: 512m
+
+  # Serviço do Nginx
+  nginx:
+    # Imagem a ser usada para o contêiner
+    image: nginx:alpine
+    # Nome do contêiner do Nginx
+    container_name: nginx-app
+    # Mapeamento de volumes para configurar o Nginx
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    # Portas do host para o contêiner
+    ports:
+      - 80:80
+    # Dependência do serviço da aplicação
+    depends_on:
+      - app

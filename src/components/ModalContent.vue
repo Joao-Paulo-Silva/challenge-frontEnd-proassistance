@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
-const props = defineProps({
-  closeModal: { type: Function as () => void, default: () => {} }
-})
+  import { defineProps } from 'vue'
+  const props = defineProps({
+    closeModal: { 
+      type: Function as () => void, 
+      default: () => {} 
+    }
+  })
 </script>
 
 <template>
