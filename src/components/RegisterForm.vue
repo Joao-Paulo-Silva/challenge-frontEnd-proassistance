@@ -273,6 +273,8 @@ import SpaceComponent from './common/SpaceComponent.vue'
 import ModalElement from './common/ModalElement.vue'
 import ModalContent from './ModalContent.vue'
 import { personDataValidation } from '@/utils/data-validation-utils'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 export default defineComponent({
   components: {
@@ -301,6 +303,9 @@ export default defineComponent({
       this.updateErrs()
       const hasErrors = Object.values(this.errs).some((err) => err)
       if (hasErrors) {
+        toast.error('Por favor, preencha todos os campos obrigatórios.', {
+          position: toast.POSITION.BOTTOM_LEFT
+        })
         return
       }
       console.log(this.formData)
@@ -328,7 +333,7 @@ export default defineComponent({
     formatCPFLocal() {
       this.formData.cpf = formatCPF(this.formData.cpf)
     },
-    formatRGLocal(){
+    formatRGLocal() {
       this.formData.rg = formatRG(this.formData.rg)
     }
   }
@@ -341,38 +346,5 @@ export default defineComponent({
   flex-direction: column;
   position: relative;
   min-width: 100%;
-}
-.title {
-  color: var(--text-primary);
-  font-weight: 600;
-  font-size: 1.5rem;
-}
-
-.text-container {
-  font-size: 1.1rem;
-  min-width: 100%;
-  padding: 0.2em 0.5em;
-  color: var(--text-white);
-  background-color: var(--background-secondary);
-  font-weight: 600;
-  border-radius: 5px;
-  margin: 1em 0;
-}
-
-.content-btn {
-  display: flex;
-  width: 100%;
-  justify-content: end;
-  margin-top: 0.5em;
-  margin-bottom: 2.5em;
-}
-
-.icon-form {
-  color: var(--text-primary);
-  height: 1rem;
-}
-
-.content-margin {
-  margin-top: 0.5em;
 }
 </style>

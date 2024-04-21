@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 
-defineProps({
+const props = defineProps({
   name: String,
   pathImage: {
     type: String,
@@ -48,13 +48,13 @@ defineProps({
       </RouterLink>
     </nav>
     <footer class="footer-container">
-      <div class="profile-img-container" v-if="pathImage">
+      <div class="profile-img-container" v-if="props.pathImage">
         <img :src="pathImage" alt="" />
       </div>
       <div class="profile-img-container" v-else>
         <v-icon name="md-person-round" />
       </div>
-      <p class='profile-name'>{{ name?.slice(0, 50) }}</p>
+      <p class='profile-name'>{{ props.name?.slice(0, 50) }}</p>
     </footer>
   </div>
 </template>
@@ -82,6 +82,7 @@ defineProps({
   padding: 0.8em 0.5em;
   border-bottom: 1px solid var(--border-container);
   font-size: 0.75rem;
+  margin-bottom: 1rem;
 }
 .return-session {
   display: flex;

@@ -1,6 +1,6 @@
 /**
  * Formata um número para o formato específico de CPF (Cadastro de Pessoas Físicas) 
- * e atualiza os valores do formulário.
+ * e retorna o  valor.
  *
  * @param {string} text - O número de CPF a ser formatado.
  *
@@ -22,7 +22,7 @@ export function formatCPF(text: string): string {
 }
 
 /**
- * Formata um número para um formato específico de telefone e atualiza os valores 
+ * Formata um número para um formato específico de telefone e retorna o valor
  * do formulário.
  *
  * @param {string} text - O número de telefone a ser formatado.
@@ -47,7 +47,12 @@ export function formatPhone(text: string): string {
     return phone
 }
 
-
+/**
+ * Formata um número de RG para um formato específico e retorna o valor formatado.
+ *
+ * @param {string} text - O número de RG a ser formatado.
+ * @returns {string} - O valor formatado do RG.
+ */
 export function formatRG(text: string): string{
     text = text.replace(/[^a-zA-Z0-9]/g, '');
     // Mantém apenas os dois primeiros caracteres como letras (se existirem)

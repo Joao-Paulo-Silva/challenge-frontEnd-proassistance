@@ -1,5 +1,6 @@
 @import './base.css';
 @import './inputs.module.css';
+@import './text.module.css';
 
 #app {
   margin: 0;
@@ -17,19 +18,13 @@
   flex-wrap: wrap;
 }
 
-.w100{
-  width: 100%;
+.icon-form {
+  color: var(--text-primary);
+  height: 1rem;
 }
 
-.w50{
-  max-width: 50%;
-}
-
-.minw50{
-  min-width: 50%;
-}
-.maxw50{
-  max-width: 50%;
+.content-margin {
+  margin-top: 0.5em;
 }
 
 .flex-columns{
