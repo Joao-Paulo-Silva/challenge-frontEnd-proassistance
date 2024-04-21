@@ -1,8 +1,44 @@
 @import './base.css';
+@import './inputs.module.css';
 
 #app {
   margin: 0;
   padding: 0;
   font-weight: normal;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Roboto;
+}
+
+.flex{
+  display: flex;
+}
+
+.flex-warp{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.w100{
+  width: 100%;
+}
+
+.w50{
+  max-width: 50%;
+}
+
+.minw50{
+  min-width: 50%;
+}
+.maxw50{
+  max-width: 50%;
+}
+
+.flex-columns{
+  display: flex;
+}
+
+@media (max-width: 700px) {
+.flex-columns{
+  display: flex;
+  flex-direction: column;
+}
 }
