@@ -330,9 +330,7 @@ export default defineComponent({
     },
     formatRGLocal(){
       this.formData.rg = formatRG(this.formData.rg)
-      
     }
-
   }
 })
 </script>

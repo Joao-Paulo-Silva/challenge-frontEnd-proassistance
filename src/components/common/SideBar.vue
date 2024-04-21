@@ -54,7 +54,7 @@ defineProps({
       <div class="profile-img-container" v-else>
         <v-icon name="md-person-round" />
       </div>
-      <p>{{ name }}</p>
+      <p class='profile-name'>{{ name?.slice(0, 50) }}</p>
     </footer>
   </div>
 </template>
@@ -165,9 +165,12 @@ defineProps({
   color: var(--text-black);
 }
 
-.footer-container p {
+.profile-name{
   font-size: 0.9rem;
   font-weight: 600;
+  width: fit-content;
+  line-height: 1.2;
+  max-width: 250px;
 }
 
 .profile-img-container {
@@ -177,6 +180,7 @@ defineProps({
   justify-content: center;
   width: 40px;
   height: 40px;
+  min-width: 40px;
   border-radius: 100%;
   border: 2px solid var(--background-secondary);
   margin-right: 0.5em;
