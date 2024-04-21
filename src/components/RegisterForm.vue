@@ -160,6 +160,7 @@
           maxlength="14"
           placeholder="000.000.000-00"
           v-model="formData.cpf"
+          @input="formatCPFLocal"
         />
         <p :class="errs.cpfErr ? 'required-content-error' : 'required-content'">
           Preenchimento obrigatório de RG ou de CPF
@@ -231,6 +232,8 @@
           id="celular"
           placeholder="(00) 00000-0000"
           v-model="formData.phone"
+          @input="formatPhoneLocal"
+          maxlength="15"
         />
         <p class="required-content"></p>
       </div>
@@ -256,7 +259,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
+import { formatPhone, formatCPF } from '@/utils/mask-string-utils'
 import {
   genderOptions,
   ethnicityOptions,
@@ -268,6 +271,7 @@ import {
 import Space from './common/Space.vue'
 import ModalElement from './common/ModalElement.vue'
 import ModalContent from './ModalContent.vue'
+import { personDataValidation } from '@/utils/data-validation-utils'
 
 export default defineComponent({
   components: {
@@ -315,14 +319,13 @@ export default defineComponent({
       }
     },
     updateErrs() {
-      this.errs.nameErr = this.formData.name.length === 0
-      this.errs.neighborhoodErr = this.formData.neighborhood.length === 0
-      this.errs.cpfErr = this.formData.cpf.length < 14
-      this.errs.dateOfBirthErr = this.formData.birthDate.length === 0
-      this.errs.addressErr = this.formData.address.length === 0
-      this.errs.ethnicityErr = this.formData.ethnicity.length === 0
-      this.errs.idErr = this.formData.id.length < 10
-      this.errs.biologicalSexErr = this.formData.biologicalSex.length === 0
+      this.errs = personDataValidation(this.formData)
+    },
+    formatPhoneLocal(){
+      this.formData.phone = formatPhone(this.formData.phone)
+    },
+    formatCPFLocal(){
+      this.formData.cpf = formatCPF(this.formData.cpf)
     }
   }
 })
