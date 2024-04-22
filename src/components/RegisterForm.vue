@@ -87,13 +87,16 @@ export default defineComponent({
       this.formData.rg = formatRG(this.formData.rg)
     },
     validationCPFInput(){
-      if(this.formData.cpf.length > 0)
+      if(this.formData.cpf.length > 0){
         this.cpfIsValid = !validationCPF(this.formData.cpf)
+        this.errs.cpfErr = !validationCPF(this.formData.cpf)
+      }
     },
     validationDateInput(){
-      if(this.formData.birthDate.length > 0)
+      if(this.formData.birthDate.length > 0){
         this.birthDateIsValid = !validationBirthDate(this.formData.birthDate)
-      else if(this.formData.birthDate.length === 0)
+        this.errs.dateOfBirthErr = !validationBirthDate(this.formData.birthDate)
+      }else if(this.formData.birthDate.length === 0)
         this.birthDateIsValid = false
     }
   }
@@ -201,7 +204,7 @@ export default defineComponent({
       </InputContainer>
     </div>
     <h2 class="text-container">Local de residência</h2>
-    <div class="flex">
+    <div class="flex-columns">
       <InputContainer id="neighborhood" label="Bairro" :require-input="true" :err="errs.neighborhoodErr">
         <input class="input" type="text" id="neighborhood" placeholder="Digite o bairro"
           v-model="formData.neighborhood" />
