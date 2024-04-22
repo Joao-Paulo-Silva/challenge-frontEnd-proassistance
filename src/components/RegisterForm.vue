@@ -18,7 +18,7 @@ import ModalElement from './common/ModalElement.vue'
 import ModalContent from './ModalContent.vue'
 import InputContainer from './common/InputContainer.vue'
 
-import { personDataValidation } from '@/utils/data-validation-utils'
+import { personDataValidation, validationCPF, validationBirthDate } from '@/utils/data-validation-utils'
 
 
 export default defineComponent({
@@ -41,7 +41,9 @@ export default defineComponent({
       ethnicityOptions,
       lgbtqiaOptions,
       biologicalSexOptions,
-      show: false
+      show: false,
+      cpfIsValid: false,
+      birthDateIsValid: false,
     }
   },
   methods: {
@@ -69,6 +71,8 @@ export default defineComponent({
       this.errs = {
         ...FormErrors
       }
+      this.birthDateIsValid = false
+      this.cpfIsValid = false
     },
     updateErrs() {
       this.errs = personDataValidation(this.formData)
@@ -81,6 +85,16 @@ export default defineComponent({
     },
     formatRGLocal() {
       this.formData.rg = formatRG(this.formData.rg)
+    },
+    validationCPFInput(){
+      if(this.formData.cpf.length > 0)
+        this.cpfIsValid = !validationCPF(this.formData.cpf)
+    },
+    validationDateInput(){
+      if(this.formData.birthDate.length > 0)
+        this.birthDateIsValid = !validationBirthDate(this.formData.birthDate)
+      else if(this.formData.birthDate.length === 0)
+        this.birthDateIsValid = false
     }
   }
 })
@@ -103,8 +117,10 @@ export default defineComponent({
     </InputContainer>
 
     <div class="flex-columns">
-      <InputContainer id="birthDate" label="Data de Nascimento" :require-input="true" :err="errs.dateOfBirthErr">
-        <input class="input" type="date" id="birthDate" v-model="formData.birthDate" />
+      <InputContainer id="birthDate" label="Data de Nascimento" :require-input="true" :err="birthDateIsValid || errs.dateOfBirthErr"
+        :require-msg="birthDateIsValid ? 'Data de nascimento invalida!' : 'Preenchimento obrigatório'"
+      >
+        <input class="input" type="date" id="birthDate" v-model="formData.birthDate" @blur="validationDateInput" />
       </InputContainer>
 
       <SpaceComponent width="2em" height="0" />
@@ -178,10 +194,10 @@ export default defineComponent({
 
       <SpaceComponent width="2em" height="0" />
 
-      <InputContainer id="cpf" label="CPF" :require-input="true" :err="errs.cpfErr"
-        require-msg="Preenchimento obrigatório de RG ou de CPF">
+      <InputContainer id="cpf" label="CPF" :require-input="true" :err="errs.cpfErr || cpfIsValid"
+        :require-msg="cpfIsValid ? 'O CPF informado não é válido.' : 'Preenchimento obrigatório de RG ou de CPF'">
         <input class="input" type="text" id="cpf" maxlength="14" placeholder="000.000.000-00" v-model="formData.cpf"
-          @input="formatCPFLocal" />
+          @input="formatCPFLocal" @blur="validationCPFInput"/>
       </InputContainer>
     </div>
     <h2 class="text-container">Local de residência</h2>
