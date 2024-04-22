@@ -30,6 +30,7 @@
   /* Cores de hover */
   --hover-background: #dddddd; /* Cor de fundo em hover */
   --hover-text: #000000; /* Cor do texto em hover */
+  --shadow-color: #d8d8d846;
 }
 
 *,

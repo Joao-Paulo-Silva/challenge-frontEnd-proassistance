@@ -67,7 +67,7 @@ const props = defineProps({
   width: fit-content;
   max-width: 250px;
   background-color: var(--background-primary);
-  box-shadow: 5px 0px 10px 0px var(--hover-background);
+  box-shadow: 2px 0px 5px 0px var(--shadow-color);
 }
 
 .header-container {
