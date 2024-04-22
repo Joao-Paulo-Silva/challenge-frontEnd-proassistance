@@ -1,39 +1,11 @@
 @import './base.css';
 @import './inputs.module.css';
 @import './text.module.css';
+@import './layout.module.css';
 
 #app {
   margin: 0;
   padding: 0;
   font-weight: normal;
   font-family: Roboto;
-}
-
-.flex{
-  display: flex;
-}
-
-.flex-warp{
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.icon-form {
-  color: var(--text-primary);
-  height: 1rem;
-}
-
-.content-margin {
-  margin-top: 0.5em;
-}
-
-.flex-columns{
-  display: flex;
-}
-
-@media (max-width: 700px) {
-.flex-columns{
-  display: flex;
-  flex-direction: column;
-}
 }

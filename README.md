@@ -1,4 +1,4 @@
-# Desafio FrontEnd ProAssistance
+# Desafio FrontEnd ProAssistance - **João Paulo**
 
 ## Sumário
 

@@ -10,8 +10,8 @@ services:
     # Portas do host para o contêiner
     ports:
       - 8080:80
-    # Limite de memória de 512MB de RAM para a aplicaçãp
-    mem_limit: 512m
+    # Limite de memória de 256MB de RAM para a aplicaçãp
+    mem_limit: 256m
 
   # Serviço do Nginx
   nginx:

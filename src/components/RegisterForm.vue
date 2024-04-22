@@ -1,265 +1,9 @@
-<template>
-  <ModalElement :show="show">
-    <ModalContent :close-modal="closeModal" />
-  </ModalElement>
-  <form class="content" @submit.prevent="submitForm">
-    <h1 class="title">Cadastro</h1>
-    <h2 class="text-container">Identificação da pessoa</h2>
-    <div class="container-input">
-      <label class="label" for="nome">Nome</label>
-      <input
-        class="input"
-        type="text"
-        id="nome"
-        placeholder="Digite o nome"
-        v-model="formData.name"
-      />
-      <p :class="errs.nameErr ? 'required-content-error' : 'required-content'">
-        Preenchimento obrigatório
-      </p>
-    </div>
-
-    <div class="container-input">
-      <label class="label" for="nomeSocial"
-        >Nome Social <v-icon class="icon-form" name="md-infooutline-round"
-      /></label>
-      <input
-        class="input"
-        type="text"
-        id="nomeSocial"
-        placeholder="Digite o nome social"
-        v-model="formData.socialName"
-      />
-      <p class="required-content"></p>
-    </div>
-    <div class="flex-columns">
-      <div class="container-input">
-        <label class="label" for="dataNascimento">Data de Nascimento</label>
-        <input class="input" type="date" id="dataNascimento" v-model="formData.birthDate" />
-        <p :class="errs.dateOfBirthErr ? 'required-content-error' : 'required-content'">
-          Preenchimento obrigatório
-        </p>
-      </div>
-      <SpaceComponent width="2em" height="0" />
-      <div class="container-input">
-        <label class="label">Sexo Biológico:</label>
-        <select class="input" v-model="formData.biologicalSex">
-          <option class="input" disabled value="">Selecione</option>
-          <option
-            class="input"
-            v-for="option in biologicalSexOptions"
-            :key="option.value"
-            :value="option.value"
-          >
-            {{ option.label }}
-          </option>
-        </select>
-        <p :class="errs.biologicalSexErr ? 'required-content-error' : 'required-content'">
-          Preenchimento obrigatório
-        </p>
-      </div>
-    </div>
-    <div class="flex-columns content-margin">
-      <div class="flex w100">
-        <div class="column">
-          <label class="label">Gênero:</label>
-          <div
-            v-for="option in genderOptions.slice(0, genderOptions.length / 2)"
-            :key="option.value"
-            class="container-radio"
-          >
-            <input
-              type="radio"
-              :id="option.value"
-              :value="option.value"
-              v-model="formData.gender"
-            />
-            <label :for="option.value"
-              >{{ option.label }} <v-icon class="icon-form" name="md-infooutline-round"
-            /></label>
-          </div>
-        </div>
-        <SpaceComponent width="2em" height="0" />
-        <div class="column">
-          <label>&nbsp;</label>
-          <div
-            v-for="option in genderOptions.slice(genderOptions.length / 2)"
-            :key="option.value"
-            class="container-radio"
-          >
-            <input
-              type="radio"
-              :id="option.value"
-              :value="option.value"
-              v-model="formData.gender"
-            />
-            <label :for="option.value"
-              >{{ option.label }} <v-icon class="icon-form" name="md-infooutline-round"
-            /></label>
-          </div>
-        </div>
-      </div>
-      <SpaceComponent width="2em" height="0" />
-      <div class="w100">
-        <label class="label">A pessoa se considera parte do público LGBTQIA+?</label>
-        <div class="flex">
-          <div
-            v-for="option in lgbtqiaOptions"
-            :key="option.value"
-            style="margin-right: 1em"
-            class="container-radio"
-          >
-            <input
-              type="radio"
-              :id="option.value"
-              :value="option.value === 'Sim'"
-              v-model="formData.LGBTQIA"
-            />
-            <label :for="option.value">{{ option.label }}</label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="container-input w50">
-        <label class="label" for="corRaca">Cor/raça</label>
-        <select class="input" v-model="formData.ethnicity">
-          <option disabled value="">Selecione</option>
-          <option v-for="option in ethnicityOptions" :key="option.value" :value="option.value">
-            {{ option.label }}
-          </option>
-        </select>
-        <p :class="errs.ethnicityErr ? 'required-content-error' : 'required-content'">
-          Preenchimento obrigatório
-        </p>
-      </div>
-    </div>
-    <h2 class="text-container">Documentos</h2>
-    <div class="flex-columns">
-      <div class="container-input">
-        <label class="label" for="rg">RG</label>
-        <input
-          class="input"
-          type="text"
-          id="rg"
-          maxlength="10"
-          placeholder="0000000000"
-          v-model="formData.rg"
-          @input="formatRGLocal"
-        />
-        <p :class="errs.rgErr ? 'required-content-error' : 'required-content'">
-          Preenchimento obrigatório de RG ou de CPF
-        </p>
-      </div>
-      <SpaceComponent width="2em" height="0" />
-      <div class="container-input">
-        <label class="label" for="cpf">CPF</label>
-        <input
-          class="input"
-          type="text"
-          id="cpf"
-          maxlength="14"
-          placeholder="000.000.000-00"
-          v-model="formData.cpf"
-          @input="formatCPFLocal"
-        />
-        <p :class="errs.cpfErr ? 'required-content-error' : 'required-content'">
-          Preenchimento obrigatório de RG ou de CPF
-        </p>
-      </div>
-    </div>
-    <h2 class="text-container">Local de residência</h2>
-    <div class="flex">
-      <div class="container-input">
-        <label class="label" for="bairro">Bairro</label>
-        <input
-          class="input"
-          type="text"
-          id="bairro"
-          placeholder="Digite o bairro"
-          v-model="formData.neighborhood"
-        />
-        <p :class="errs.neighborhoodErr ? 'required-content-error' : 'required-content'">
-          Preenchimento obrigatório
-        </p>
-      </div>
-      <SpaceComponent width="2em" height="0" />
-      <div class="container-input">
-        <label class="label" for="endereco">Endereço</label>
-        <input
-          class="input"
-          type="text"
-          id="endereco"
-          placeholder="Digite o endereço"
-          v-model="formData.address"
-        />
-        <p :class="errs.addressErr ? 'required-content-error' : 'required-content'">
-          Preenchimento obrigatório
-        </p>
-      </div>
-    </div>
-    <div class="flex-columns">
-      <div class="container-input">
-        <label class="label" for="numero">Número</label>
-        <input
-          class="input"
-          type="text"
-          id="numero"
-          placeholder="Digite o número"
-          v-model="formData.number"
-        />
-        <p class="required-content"></p>
-      </div>
-      <SpaceComponent width="2em" height="0" />
-      <div class="container-input">
-        <label class="label" for="complemento">Complemento</label>
-        <input
-          class="input"
-          type="text"
-          id="complemento"
-          placeholder="Ex: apartamento 22"
-          v-model="formData.complement"
-        />
-        <p class="required-content"></p>
-      </div>
-    </div>
-    <h2 class="text-container">Informações de contato</h2>
-    <div class="flex-columns">
-      <div class="container-input">
-        <label class="label" for="celular">Celular</label>
-        <input
-          class="input"
-          type="text"
-          id="celular"
-          placeholder="(00) 00000-0000"
-          v-model="formData.phone"
-          @input="formatPhoneLocal"
-          maxlength="15"
-        />
-        <p class="required-content"></p>
-      </div>
-      <SpaceComponent width="2em" height="0" />
-      <div class="container-input">
-        <label class="label" for="email">E-mail</label>
-        <input
-          class="input"
-          type="email"
-          id="email"
-          placeholder="Digite o email"
-          v-model="formData.email"
-        />
-        <p class="required-content"></p>
-      </div>
-    </div>
-    <div class="content-btn">
-      <button @click="resetForm" type="button" class="btn btn-secondary">Cancelar</button>
-      <button type="submit" class="btn btn-primary">Cadastrar</button>
-    </div>
-  </form>
-</template>
-
 <script lang="ts">
+
+import 'vue3-toastify/dist/index.css'
 import { defineComponent } from 'vue'
+import { toast } from 'vue3-toastify'
+
 import { formatPhone, formatCPF, formatRG } from '@/utils/mask-string-utils'
 import {
   genderOptions,
@@ -272,15 +16,17 @@ import {
 import SpaceComponent from './common/SpaceComponent.vue'
 import ModalElement from './common/ModalElement.vue'
 import ModalContent from './ModalContent.vue'
+import InputContainer from './common/InputContainer.vue'
+
 import { personDataValidation } from '@/utils/data-validation-utils'
-import { toast } from 'vue3-toastify'
-import 'vue3-toastify/dist/index.css'
+
 
 export default defineComponent({
   components: {
     SpaceComponent,
     ModalElement,
-    ModalContent
+    ModalContent,
+    InputContainer
   },
   data() {
     return {
@@ -340,11 +86,175 @@ export default defineComponent({
 })
 </script>
 
+<template>
+  <ModalElement :show="show">
+    <ModalContent :close-modal="closeModal" />
+  </ModalElement>
+  <form class="content" @submit.prevent="submitForm">
+    <h1 class="title">Cadastro</h1>
+    <h2 class="text-container">Identificação da pessoa</h2>
+    <InputContainer id="name" label="Nome" :require-input="true" :err="errs.nameErr">
+      <input class="input" type="text" id="name" placeholder="Digite o nome" v-model="formData.name" />
+    </InputContainer>
+
+    <InputContainer id="socialName" label="Nome Social" name-icon="md-infooutline-round">
+      <input class="input" type="text" id="socialName" placeholder="Digite o nome social"
+        v-model="formData.socialName" />
+    </InputContainer>
+
+    <div class="flex-columns">
+      <InputContainer id="birthDate" label="Data de Nascimento" :require-input="true" :err="errs.dateOfBirthErr">
+        <input class="input" type="date" id="birthDate" v-model="formData.birthDate" />
+      </InputContainer>
+
+      <SpaceComponent width="2em" height="0" />
+
+      <InputContainer id="biologicalSex" label="Sexo Biológico:" :require-input="true" :err="errs.biologicalSexErr">
+        <select class="input" v-model="formData.biologicalSex">
+          <option class="input" disabled value="">Selecione</option>
+          <option class="input" v-for="option in biologicalSexOptions" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </InputContainer>
+    </div>
+    <div class="flex-columns">
+      <div class="flex">
+        <div class="column">
+          <InputContainer id="gender" label="Gênero">
+            <div v-for="option in genderOptions.slice(0, genderOptions.length / 2)" :key="option.value"
+              class="container-radio">
+              <input type="radio" :id="option.value" :value="option.value" v-model="formData.gender" />
+              <label :for="option.value">
+                {{ option.label }} <v-icon class="icon-form" name="md-infooutline-round" />
+              </label>
+            </div>
+          </InputContainer>
+        </div>
+
+        <SpaceComponent width="2em" height="0" />
+
+        <div class="column">
+          <InputContainer id="gender" label="&nbsp;">
+            <div v-for="option in genderOptions.slice(genderOptions.length / 2)" :key="option.value"
+              class="container-radio">
+              <input type="radio" :id="option.value" :value="option.value" v-model="formData.gender" />
+              <label :for="option.value">{{ option.label }} <v-icon class="icon-form"
+                  name="md-infooutline-round" /></label>
+            </div>
+          </InputContainer>
+        </div>
+      </div>
+
+      <SpaceComponent width="2em" height="0" />
+
+      <InputContainer id="LGBTQIA" label="A pessoa se considera parte do público LGBTQIA+?">
+        <div class="flex">
+          <div v-for="option in lgbtqiaOptions" :key="option.value" style="margin-right: 1em" class="container-radio">
+            <input type="radio" :id="option.value" :value="option.value === 'Sim'" v-model="formData.LGBTQIA" />
+            <label :for="option.value">{{ option.label }}</label>
+          </div>
+        </div>
+      </InputContainer>
+    </div>
+    <div>
+      <InputContainer id="corRaca" label="Cor/raça" class="max-content-50 padding-right" :require-input="true"
+        :err="errs.ethnicityErr">
+        <select class="input" v-model="formData.ethnicity">
+          <option disabled value="">Selecione</option>
+          <option v-for="option in ethnicityOptions" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </InputContainer>
+    </div>
+    <h2 class="text-container">Documentos</h2>
+    <div class="flex-columns">
+      <InputContainer id="rg" label="RG" :require-input="true" :err="errs.rgErr"
+        require-msg="Preenchimento obrigatório de RG ou de CPF">
+        <input class="input" type="text" id="rg" maxlength="12" placeholder="0000000000" v-model="formData.rg"
+          @input="formatRGLocal" />
+      </InputContainer>
+
+      <SpaceComponent width="2em" height="0" />
+
+      <InputContainer id="cpf" label="CPF" :require-input="true" :err="errs.cpfErr"
+        require-msg="Preenchimento obrigatório de RG ou de CPF">
+        <input class="input" type="text" id="cpf" maxlength="14" placeholder="000.000.000-00" v-model="formData.cpf"
+          @input="formatCPFLocal" />
+      </InputContainer>
+    </div>
+    <h2 class="text-container">Local de residência</h2>
+    <div class="flex">
+      <InputContainer id="neighborhood" label="Bairro" :require-input="true" :err="errs.neighborhoodErr">
+        <input class="input" type="text" id="neighborhood" placeholder="Digite o bairro"
+          v-model="formData.neighborhood" />
+      </InputContainer>
+
+      <SpaceComponent width="2em" height="0" />
+
+      <InputContainer id="address" label="Endereço" :require-input="true" :err="errs.addressErr">
+        <input class="input" type="text" id="address" placeholder="Digite o endereço" v-model="formData.address" />
+      </InputContainer>
+    </div>
+    <div class="flex-columns">
+      <InputContainer id="number" label="Número">
+        <div class="flex-input-icon">
+          <v-icon class="icon-span" name="md-home-outlined" />
+          <input class="input  padding-left-input" type="text" id="number" placeholder="Digite o número"
+            v-model="formData.number" />
+        </div>
+      </InputContainer>
+
+      <SpaceComponent width="2em" height="0" />
+
+      <InputContainer id="complement" label="complemento">
+        <div class="flex-input-icon">
+          <v-icon class="icon-span" name="md-home-outlined" />
+          <input class="input  padding-left-input" type="text" id="complement" placeholder="Ex: apartamento 22"
+            v-model="formData.complement" />
+        </div>
+      </InputContainer>
+    </div>
+    <h2 class="text-container">Informações de contato</h2>
+    <div class="flex-columns">
+      <InputContainer id="phone" label="Celular">
+        <div class="flex-input-icon">
+          <v-icon class="icon-span" name="md-smartphone" />
+          <input class="input padding-left-input" type="text" id="phone" placeholder="(00) 00000-0000"
+            v-model="formData.phone" @input="formatPhoneLocal" maxlength="15" />
+        </div>
+      </InputContainer>
+
+      <SpaceComponent width="2em" height="0" />
+
+      <InputContainer id="email" label="E-mail">
+        <div class="flex-input-icon">
+          <v-icon class="icon-span" name="md-email-outlined" />
+          <input class="input padding-left-input" type="email" id="email" placeholder="Digite o email"
+            v-model="formData.email" />
+        </div>
+      </InputContainer>
+    </div>
+    <div class="content-btn">
+      <button @click="resetForm" type="button" class="btn btn-secondary">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </div>
+  </form>
+</template>
+
 <style scoped>
 .content {
   display: flex;
   flex-direction: column;
   position: relative;
   min-width: 100%;
+}
+
+.icon-span {
+  position: absolute;
+  margin-left: 0.5rem;
+  color: var(--placeholder-text);
+  z-index: -1;
 }
 </style>
